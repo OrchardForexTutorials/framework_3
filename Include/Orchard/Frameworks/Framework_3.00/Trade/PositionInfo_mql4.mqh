@@ -19,7 +19,7 @@ class CPositionInfo {
 
 public:
 
-	int					SelectByIndex(int index);
+	bool					SelectByIndex(int index);
 
 	int					Magic()				{	return(OrderMagicNumber());	}
 	ENUM_POSITION_TYPE	PositionType()	{	return((ENUM_POSITION_TYPE)OrderType());	}
@@ -37,12 +37,12 @@ public:
 *	@param - index : index position of order to select
 *	@return - ticket number : 0 if the order is not buy/sell or is closed or not found
 */
-int	CPositionInfo::SelectByIndex(int index) {
+bool	CPositionInfo::SelectByIndex(int index) {
 
-	if ( !OrderSelect(index, SELECT_BY_POS, MODE_TRADES) ) return(0);
-	if ( OrderType()!=ORDER_TYPE_BUY && OrderType()!=ORDER_TYPE_SELL ) return(0);
-	if ( OrderCloseTime() > 0 ) return(0);
-	return(OrderTicket());
+	if ( !OrderSelect(index, SELECT_BY_POS, MODE_TRADES) ) return(false);
+	if ( OrderType()!=ORDER_TYPE_BUY && OrderType()!=ORDER_TYPE_SELL ) return(false);
+	if ( OrderCloseTime() > 0 ) return(false);
+	return(OrderTicket()>0);
 	
 }
 

@@ -16,18 +16,15 @@
 //		unless your code has already included another 
 //		framework file 
 
-//	If no framework version has been selected then default to the current here
-#ifndef	_FRAMEWORK_VERSION_ 
-	#define _FRAMEWORK_VERSION_ "3.00"
-	//	Make sure the define is correct for the selected version
-	#ifndef _FRAMEWORK_VERSION_3_00
-		#define _FRAMEWORK_VERSION_3_00
-	#endif 
-#endif 
-
 //	The following will load in the selected framework
-//	If you have selected an invalid framework you will just get nothing
-#ifdef _FRAMEWORK_VERSION_3_00
-	#include "Framework_3.00/Framework.mqh"
-#endif
+//		beginning with the latest
+//	If you have selected a framework with (need both lines in the beginning of your app)
+//			#define FRAMEWORK_VERSION_3_XX_
+//			#define FRAMEWORK_VERSION
+//		then that version will be loaded. If not the most recent
+//		is loaded
+
+
+#include "Framework_3.01/Framework.mqh"
+#include "Framework_3.00/Framework.mqh"
 

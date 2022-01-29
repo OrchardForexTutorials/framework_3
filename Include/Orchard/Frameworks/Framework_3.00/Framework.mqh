@@ -7,10 +7,16 @@
  	
 */
 
-#include "Framework_Version.mqh"
+#ifndef	FRAMEWORK_VERSION
+	#define	FRAMEWORK_VERSION
+	#define	FRAMEWORK_VERSION_3_00
+#endif
 
-#include "Common/CommonBase.mqh"
-#include	"Trade/Trade.mqh"
-#include "Expert/ExpertBase.mqh"
+#ifdef FRAMEWORK_VERSION_3_00
 
+	#include "Common/CommonBase.mqh"
+	#include	"Trade/Trade.mqh"
+	#include "Expert/ExpertBase.mqh"
+
+#endif
 
