@@ -1,5 +1,11 @@
 # Orchard Framework 3
 
+### Usage
+
+This project is intended and may be freely used for education and entertainment purposes.
+However, **this project is not suitable for live trading**
+without relevant knowledge.
+
 ## v3.01
 - Fix error in PositionInfo_mql4 where SelectByIndex should have returned a boolean but was instead returning an integer
 - Added code to the ExpertBase class needed for grid trading
