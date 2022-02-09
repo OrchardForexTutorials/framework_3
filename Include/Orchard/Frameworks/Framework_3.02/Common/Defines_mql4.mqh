@@ -50,8 +50,8 @@ struct MqlTradeRequest {
 	double                        tp;               // Take Profit level of the order 
 	ulong                         deviation;        // Maximal possible deviation from the requested price 
 	ENUM_ORDER_TYPE               type;             // Order type 
-	int       							type_filling;     // Order execution type (int here) 
-	int          						type_time;        // Order expiration type (int here) 
+	int       		      type_filling;     // Order execution type (int here) 
+	int          		      type_time;        // Order expiration type (int here) 
 	datetime                      expiration;       // Order expiration time (for the orders of ORDER_TIME_SPECIFIED type) 
 	string                        comment;          // Order comment 
 	ulong                         position;         // Position ticket 
