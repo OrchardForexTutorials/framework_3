@@ -1,5 +1,16 @@
 # Orchard Framework 3
 
+This code is for education and entertainment purposes only, it is not to be used for live trading.
+
+## v3.03
+- Added indicators to the framework
+- IndicatorBase as a central indicator class
+- IndicatorStochastic as a wrapper for the Stochastic indicator
+- IndicatorHA as a wrapper for iCustom use of the Heiken Ashi example indicator
+
+## v3.02
+- Implemented additional position and trade capabilities
+
 ## v3.01
 - Fix error in PositionInfo_mql4 where SelectByIndex should have returned a boolean but was instead returning an integer
 - Added code to the ExpertBase class needed for grid trading
