@@ -47,6 +47,8 @@
 //		then that version will be loaded. If not the most recent
 //		is loaded
 
+// 3.03 introduced indicator classes
+#include "Framework_3.03/Framework.mqh"
 #include "Framework_3.02/Framework.mqh"
 #include "Framework_3.01/Framework.mqh"
 #include "Framework_3.00/Framework.mqh"
