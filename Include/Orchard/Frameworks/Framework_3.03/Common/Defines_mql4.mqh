@@ -49,8 +49,7 @@ enum ENUM_INDICATOR_BUFFERS
    SIGNAL_LINE = MODE_SIGNAL,
 };
 
-struct MqlTradeRequest
-{
+struct MqlTradeRequest {
    int             action;       // Trade operation type (as int here)
    ulong           magic;        // Expert Advisor ID (magic number)
    ulong           order;        // Order ticket
@@ -70,8 +69,7 @@ struct MqlTradeRequest
    ulong    position_by; // The ticket of an opposite position
 };
 
-struct MqlTradeResult
-{
+struct MqlTradeResult {
    uint   retcode; // Operation return code
    ulong  deal;    // Deal ticket, if it is performed
    ulong  order;   // Order ticket, if it is placed

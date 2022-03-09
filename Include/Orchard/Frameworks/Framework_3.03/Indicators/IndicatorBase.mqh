@@ -31,8 +31,7 @@
 #include "../Common/CommonBase.mqh"
 #include "../Common/Defines.mqh"
 
-class CIndicatorBase : public CCommonBase
-{
+class CIndicatorBase : public CCommonBase {
 
 private:
 protected: // member variables
@@ -40,7 +39,9 @@ protected: // member variables
    int mIndicatorHandle;
 
 public: // constructors
-   CIndicatorBase() : CCommonBase() { Init(); }
+   CIndicatorBase() : CCommonBase() {
+      Init();
+   }
    CIndicatorBase( string symbol, ENUM_TIMEFRAMES timeframe ) : CCommonBase( symbol, timeframe ) {
       Init();
    }
@@ -49,8 +50,12 @@ public: // constructors
    int Init();
 
 public:
-   virtual double GetData( const int index ) { return ( GetData( 0, index ) ); }
-   virtual double GetData( const int bufferNum, const int index ) { return ( 0 ); }
+   virtual double GetData( const int index ) {
+      return ( GetData( 0, index ) );
+   }
+   virtual double GetData( const int bufferNum, const int index ) {
+      return ( 0 );
+   }
 };
 
 CIndicatorBase::~CIndicatorBase() {

@@ -32,9 +32,10 @@
 
 #include <Trade/PositionInfo.mqh>
 
-class CPositionInfoCustom : public CPositionInfo
-{
+class CPositionInfoCustom : public CPositionInfo {
 
 public:
-   int Total() { return ( PositionsTotal() ); }
+   int Total() {
+      return ( PositionsTotal() );
+   }
 };

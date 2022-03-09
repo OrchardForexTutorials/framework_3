@@ -30,8 +30,7 @@
  **/
 #include "IndicatorBase.mqh"
 
-class CIndicatorStochastic : public CIndicatorBase
-{
+class CIndicatorStochastic : public CIndicatorBase {
 
 private:
 protected: // member variables
@@ -85,7 +84,8 @@ CIndicatorStochastic::CIndicatorStochastic( string symbol, ENUM_TIMEFRAMES timef
    InitError( "", INIT_SUCCEEDED );
 }
 
-CIndicatorStochastic::~CIndicatorStochastic() {}
+CIndicatorStochastic::~CIndicatorStochastic() {
+}
 
 double CIndicatorStochastic::GetData( const int buffer_num, const int index ) {
 

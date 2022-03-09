@@ -35,18 +35,18 @@
 
 #ifdef _FRAMEWORK_VERSION_3_00
 
-#ifndef _FRAMEWORK_VERSION_
-#define _FRAMEWORK_VERSION_ "3.00"
-#endif
+   #ifndef _FRAMEWORK_VERSION_
+      #define _FRAMEWORK_VERSION_ "3.00"
+   #endif
 
 #endif
 
 #ifndef _FRAMEWORK_VERSION_
 
-#define _FRAMEWORK_VERSION_ "3.00"
-//	Make sure the define is correct for the selected version
-#ifndef _FRAMEWORK_VERSION_3_00
-#define _FRAMEWORK_VERSION_3_00
-#endif
+   #define _FRAMEWORK_VERSION_ "3.00"
+   //	Make sure the define is correct for the selected version
+   #ifndef _FRAMEWORK_VERSION_3_00
+      #define _FRAMEWORK_VERSION_3_00
+   #endif
 
 #endif

@@ -37,8 +37,8 @@
 #property strict
 
 #ifdef __MQL4__
-#include "PositionInfo_mql4.mqh"
+   #include "PositionInfo_mql4.mqh"
 #endif
 #ifdef __MQL5__
-#include "PositionInfo_mql5.mqh"
+   #include "PositionInfo_mql5.mqh"
 #endif

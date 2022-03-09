@@ -31,10 +31,10 @@
 #include "IndicatorBase.mqh"
 
 #ifdef __MQL4__
-#define HAIndicator "Indicators\\Heiken Ashi.ex4"
+   #define HAIndicator "Indicators\\Heiken Ashi.ex4"
 #endif
 #ifdef __MQL5__
-#define HAIndicator "Indicators\\Examples\\Heiken_Ashi.ex5"
+   #define HAIndicator "Indicators\\Examples\\Heiken_Ashi.ex5"
 #endif
 #resource "\\" + HAIndicator
 
@@ -54,8 +54,7 @@ enum ENUM_HA_BUFFER
 #endif
 };
 
-class CIndicatorHA : public CIndicatorBase
-{
+class CIndicatorHA : public CIndicatorBase {
 
 private:
 protected: // member variables
@@ -68,7 +67,9 @@ public:
    virtual double GetData( const int buffer_num, const int index );
 };
 
-CIndicatorHA::CIndicatorHA() { CIndicatorHA( Symbol(), ( ENUM_TIMEFRAMES )Period() ); }
+CIndicatorHA::CIndicatorHA() {
+   CIndicatorHA( Symbol(), ( ENUM_TIMEFRAMES )Period() );
+}
 
 CIndicatorHA::CIndicatorHA( string symbol, ENUM_TIMEFRAMES timeframe )
    : CIndicatorBase( symbol, timeframe ) {
@@ -87,7 +88,8 @@ CIndicatorHA::CIndicatorHA( string symbol, ENUM_TIMEFRAMES timeframe )
    InitError( "", INIT_SUCCEEDED );
 }
 
-CIndicatorHA::~CIndicatorHA() {}
+CIndicatorHA::~CIndicatorHA() {
+}
 
 double CIndicatorHA::GetData( const int buffer_num, const int index ) {
 
