@@ -38,32 +38,19 @@
 #include "../Common/Defines.mqh"
 #include "../Framework_Version.mqh"
 
-class CPositionInfo {
+class CPositionInfo
+{
 
 public:
-   bool SelectByIndex( int index );
+   bool               SelectByIndex( int index );
 
-   int  Magic() {
-      return ( OrderMagicNumber() );
-   }
-   ENUM_POSITION_TYPE PositionType() {
-      return ( ( ENUM_POSITION_TYPE )OrderType() );
-   }
-   double PriceOpen() {
-      return ( OrderOpenPrice() );
-   }
-   double StopLoss() {
-      return ( OrderStopLoss() );
-   }
-   string Symbol() {
-      return ( OrderSymbol() );
-   }
-   double TakeProfit() {
-      return ( OrderTakeProfit() );
-   }
-   int Ticket() {
-      return ( OrderTicket() );
-   }
+   int                Magic() { return ( OrderMagicNumber() ); }
+   ENUM_POSITION_TYPE PositionType() { return ( ( ENUM_POSITION_TYPE )OrderType() ); }
+   double             PriceOpen() { return ( OrderOpenPrice() ); }
+   double             StopLoss() { return ( OrderStopLoss() ); }
+   string             Symbol() { return ( OrderSymbol() ); }
+   double             TakeProfit() { return ( OrderTakeProfit() ); }
+   int                Ticket() { return ( OrderTicket() ); }
 };
 
 /*
@@ -80,10 +67,9 @@ bool CPositionInfo::SelectByIndex( int index ) {
    return ( OrderTicket() > 0 );
 }
 
-class CPositionInfoCustom : public CPositionInfo {
+class CPositionInfoCustom : public CPositionInfo
+{
 
 public:
-   int Total() {
-      return ( OrdersTotal() );
-   }
+   int Total() { return ( OrdersTotal() ); }
 };

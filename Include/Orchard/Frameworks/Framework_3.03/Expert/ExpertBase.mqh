@@ -34,7 +34,8 @@
 #include "../Common/Defines.mqh"
 #include "../Trade/Trade.mqh"
 
-class CExpertBase : public CCommonBase {
+class CExpertBase : public CCommonBase
+{
 
 private:
 protected:
@@ -52,35 +53,24 @@ protected:
    datetime            mPrevBarTime;
 
    virtual void        CloseAll( ENUM_POSITION_TYPE type, double price );
-   virtual void        Setup() {
-      return;
-   }
-   virtual void Loop() {
-      return;
-   }
-   bool         NewBar();
-   virtual void Recount();
+   virtual void        Setup() { return; }
+   virtual void        Loop() { return; }
+   bool                NewBar();
+   virtual void        Recount();
 
 public:
    CExpertBase();
    CExpertBase( double orderSize, string tradeComment, long magic );
-   ~CExpertBase() {
-   }
+   ~CExpertBase() {}
 
-   virtual int OnInit() {
-      return ( INIT_SUCCEEDED );
-   }
-   virtual void OnDeinit( const int reason ) {
-      return;
-   }
+   virtual int  OnInit() { return ( INIT_SUCCEEDED ); }
+   virtual void OnDeinit( const int reason ) { return; }
    virtual void OnTick();
 
    bool         TradeAllowed();
 };
 
-CExpertBase::CExpertBase() {
-   CExpertBase( 0, "", 0 );
-}
+CExpertBase::CExpertBase() { CExpertBase( 0, "", 0 ); }
 
 CExpertBase::CExpertBase( double orderSize, string tradeComment, long magic ) {
 

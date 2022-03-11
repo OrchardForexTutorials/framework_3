@@ -67,7 +67,9 @@ public: // constructors
    ~CIndicatorHA();
 
 public:
+#ifdef __MQL4__
    virtual double GetData( const int buffer_num, const int index );
+#endif
 };
 
 CIndicatorHA::CIndicatorHA() : CIndicatorBase( Symbol(), ( ENUM_TIMEFRAMES )Period() ) { Init(); }
@@ -96,19 +98,9 @@ void CIndicatorHA::Init() {
 
 CIndicatorHA::~CIndicatorHA() {}
 
+#ifdef __MQL4__
 double CIndicatorHA::GetData( const int buffer_num, const int index ) {
 
-   double value = 0;
-#ifdef __MQL4__
-   value = iCustom( mSymbol, mTimeframe, "::" + HAIndicator, buffer_num, index );
-#endif
-
-#ifdef __MQL5__
-   double bufferData[];
-   ArraySetAsSeries( bufferData, true );
-   int cnt = CopyBuffer( mIndicatorHandle, buffer_num, index, 1, bufferData );
-   if ( cnt > 0 ) value = bufferData[0];
-#endif
-
-   return ( value );
+   return ( iCustom( mSymbol, mTimeframe, "::" + HAIndicator, buffer_num, index ) );
 }
+#endif

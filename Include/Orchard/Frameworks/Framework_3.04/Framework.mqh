@@ -1,5 +1,6 @@
 /*
    Framework.mqh
+   Framework 3.01
 
    Copyright 2013-2022, Orchard Forex
    https://www.orchardforex.com
@@ -30,27 +31,25 @@
  *
  **/
 
-//
-//	The only purpose of this mqh file is to provide a single
-//		point to change the current framework version
-//
-//	If you place an include to this file in your code you
-//		will get the version framework defined in this file
-//		unless your code has already included another
-//		framework file
+/*
+ *	V3.04
+ *	More indicators and made some methods common
+ *		MA
+ *		Fractals
+ *
+ */
 
-//	The following will load in the selected framework
-//		beginning with the latest
-//	If you have selected a framework with (need both lines in the beginning of your app)
-//			#define FRAMEWORK_VERSION_3_XX_
-//			#define FRAMEWORK_VERSION
-//		then that version will be loaded. If not the most recent
-//		is loaded
+#ifndef FRAMEWORK_VERSION
+#define FRAMEWORK_VERSION
+#define FRAMEWORK_VERSION_3_04
+#endif
 
-// 3.04 more indicators and common methods
-#include "Framework_3.04/Framework.mqh"
-// 3.03 introduced indicator classes
-#include "Framework_3.03/Framework.mqh"
-#include "Framework_3.02/Framework.mqh"
-#include "Framework_3.01/Framework.mqh"
-#include "Framework_3.00/Framework.mqh"
+#ifdef FRAMEWORK_VERSION_3_04
+
+#include "Common/CommonBase.mqh"
+#include "Expert/ExpertBase.mqh"
+#include "Expert/LegBase.mqh"
+#include "Indicators/Indicators.mqh"
+#include "Trade/Trade.mqh"
+
+#endif

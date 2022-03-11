@@ -1,10 +1,10 @@
 /*
-   IndicatorHA.mqh
-
-   Copyright 2022, Orchard Forex
-   https://www.orchardforex.com
-
-*/
+ *	IndicatorFractal.mqh
+ *
+ *	Copyright 2022, Orchard Forex
+ *	https://orchardforex.com
+ *
+ */
 
 /**=
  *
@@ -30,31 +30,7 @@
  **/
 #include "IndicatorBase.mqh"
 
-#ifdef __MQL4__
-#define HAIndicator "Indicators\\Heiken Ashi.ex4"
-#endif
-#ifdef __MQL5__
-#define HAIndicator "Indicators\\Examples\\Heiken_Ashi.ex5"
-#endif
-#resource "\\" + HAIndicator
-
-enum ENUM_HA_BUFFER
-{
-#ifdef __MQL4__
-   HA_BUFFER_LOHI,
-   HA_BUFFER_HILO,
-   HA_BUFFER_OPEN,
-   HA_BUFFER_CLOSE,
-#endif
-#ifdef __MQL5__
-   HA_BUFFER_OPEN,
-   HA_BUFFER_HILO,
-   HA_BUFFER_LOHI,
-   HA_BUFFER_CLOSE,
-#endif
-};
-
-class CIndicatorHA : public CIndicatorBase
+class CIndicatorFractal : public CIndicatorBase
 {
 
 private:
@@ -62,29 +38,34 @@ protected: // member variables
    void Init();
 
 public: // constructors
-   CIndicatorHA();
-   CIndicatorHA( string symbol, ENUM_TIMEFRAMES timeframe );
-   ~CIndicatorHA();
+   CIndicatorFractal();
+   CIndicatorFractal( string symbol, ENUM_TIMEFRAMES timeframe );
+   ~CIndicatorFractal();
 
 public:
+#ifdef __MQL4__
    virtual double GetData( const int buffer_num, const int index );
+#endif
 };
 
-CIndicatorHA::CIndicatorHA() : CIndicatorBase( Symbol(), ( ENUM_TIMEFRAMES )Period() ) { Init(); }
+CIndicatorFractal::CIndicatorFractal() : CIndicatorBase( Symbol(), ( ENUM_TIMEFRAMES )Period() ) {
 
-CIndicatorHA::CIndicatorHA( string symbol, ENUM_TIMEFRAMES timeframe )
+   Init();
+}
+
+CIndicatorFractal::CIndicatorFractal( string symbol, ENUM_TIMEFRAMES timeframe )
    : CIndicatorBase( symbol, timeframe ) {
 
    Init();
 }
 
-void CIndicatorHA::Init() {
+void CIndicatorFractal::Init() {
 
    if ( mInitResult != INIT_SUCCEEDED ) return;
 
 //	For MQL5 create the indicator handle here
 #ifdef __MQL5__
-   mIndicatorHandle = iCustom( mSymbol, mTimeframe, "::" + HAIndicator );
+   mIndicatorHandle = iFractals( mSymbol, mTimeframe );
    if ( mIndicatorHandle == INVALID_HANDLE ) {
       InitError( "Failed to create indicator handle", INIT_FAILED );
       return;
@@ -94,21 +75,11 @@ void CIndicatorHA::Init() {
    InitError( "", INIT_SUCCEEDED );
 }
 
-CIndicatorHA::~CIndicatorHA() {}
+CIndicatorFractal::~CIndicatorFractal() {}
 
-double CIndicatorHA::GetData( const int buffer_num, const int index ) {
-
-   double value = 0;
 #ifdef __MQL4__
-   value = iCustom( mSymbol, mTimeframe, "::" + HAIndicator, buffer_num, index );
-#endif
+double CIndicatorFractal::GetData( const int buffer_num, const int index ) {
 
-#ifdef __MQL5__
-   double bufferData[];
-   ArraySetAsSeries( bufferData, true );
-   int cnt = CopyBuffer( mIndicatorHandle, buffer_num, index, 1, bufferData );
-   if ( cnt > 0 ) value = bufferData[0];
-#endif
-
-   return ( value );
+   return ( iFractals( mSymbol, mTimeframe, buffer_num, index ) );
 }
+#endif

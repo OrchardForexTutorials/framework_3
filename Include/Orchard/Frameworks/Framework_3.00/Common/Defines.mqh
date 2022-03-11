@@ -33,5 +33,5 @@
 #include "../Framework_Version.mqh"
 
 #ifdef __MQL4__
-   #include "Defines_mql4.mqh"
+#include "Defines_mql4.mqh"
 #endif

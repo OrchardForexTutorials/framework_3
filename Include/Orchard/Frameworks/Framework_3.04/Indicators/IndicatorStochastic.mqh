@@ -52,7 +52,9 @@ public: // constructors
    ~CIndicatorStochastic();
 
 public:
+#ifdef __MQL4__
    virtual double GetData( const int buffer_num, const int index );
+#endif
 };
 
 CIndicatorStochastic::CIndicatorStochastic( int kPeriod, int dPeriod, int slowing,
@@ -96,24 +98,10 @@ void CIndicatorStochastic::Init( int kPeriod, int dPeriod, int slowing, ENUM_MA_
 
 CIndicatorStochastic::~CIndicatorStochastic() {}
 
+#ifdef __MQL4__
 double CIndicatorStochastic::GetData( const int buffer_num, const int index ) {
 
-   double value = 0;
-
-// Get the value directly for MQL4
-#ifdef __MQL4__
-   value = iStochastic( mSymbol, mTimeframe, mKPeriod, mDPeriod, mSlowing, mStoMethod, mStoPrice,
-                        buffer_num, index );
-#endif
-
-//	Get data from a buffer for MQL5
-//	Improve all of this later when there is a need for an array of results
-#ifdef __MQL5__
-   double bufferData[];
-   ArraySetAsSeries( bufferData, true );
-   int cnt = CopyBuffer( mIndicatorHandle, buffer_num, index, 1, bufferData );
-   if ( cnt > 0 ) value = bufferData[0];
-#endif
-
-   return ( value );
+   return ( iStochastic( mSymbol, mTimeframe, mKPeriod, mDPeriod, mSlowing, mStoMethod, mStoPrice,
+                         buffer_num, index ) );
 }
+#endif

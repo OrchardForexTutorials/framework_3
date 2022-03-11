@@ -36,7 +36,8 @@
 
 #include "../Common/Defines.mqh"
 
-class CTrade : public CObject {
+class CTrade : public CObject
+{
 
 private:
 protected:                 // member variables
@@ -50,40 +51,27 @@ public: // constructors
    ~CTrade();
 
 public:
-   ulong RequestMagic() {
-      return ( mMagic );
-   }
-   void SetExpertMagicNumber( const int magic ) {
-      mMagic = magic;
-   }
+   ulong  RequestMagic() { return ( mMagic ); }
+   void   SetExpertMagicNumber( const int magic ) { mMagic = magic; }
 
-   double BuyPrice( string symbol ) {
-      return ( SymbolInfoDouble( symbol, SYMBOL_ASK ) );
-   }
-   double SellPrice( string symbol ) {
-      return ( SymbolInfoDouble( symbol, SYMBOL_BID ) );
-   }
+   double BuyPrice( string symbol ) { return ( SymbolInfoDouble( symbol, SYMBOL_ASK ) ); }
+   double SellPrice( string symbol ) { return ( SymbolInfoDouble( symbol, SYMBOL_BID ) ); }
 
-   bool Buy( const double volume, const string symbol = NULL, double price = 0.0,
-             const double sl = 0.0, const double tp = 0.0, const string comment = "" );
-   bool Sell( const double volume, const string symbol = NULL, double price = 0.0,
-              const double sl = 0.0, const double tp = 0.0, const string comment = "" );
+   bool   Buy( const double volume, const string symbol = NULL, double price = 0.0,
+               const double sl = 0.0, const double tp = 0.0, const string comment = "" );
+   bool   Sell( const double volume, const string symbol = NULL, double price = 0.0,
+                const double sl = 0.0, const double tp = 0.0, const string comment = "" );
 
-   bool PositionClose( int ticket );
-   bool PositionOpen( const string symbol, const ENUM_ORDER_TYPE order_type, const double volume,
-                      const double price, const double sl, const double tp, const string comment );
+   bool   PositionClose( int ticket );
+   bool   PositionOpen( const string symbol, const ENUM_ORDER_TYPE order_type, const double volume,
+                        const double price, const double sl, const double tp, const string comment );
 };
 
-CTrade::CTrade() {
-   mMagic = 0;
-}
+CTrade::CTrade() { mMagic = 0; }
 
-CTrade::~CTrade() {
-}
+CTrade::~CTrade() {}
 
-void CTrade::ClearStructures() {
-   ZeroMemory( mResult );
-}
+void CTrade::ClearStructures() { ZeroMemory( mResult ); }
 
 bool CTrade::Buy( const double volume, const string symbol = NULL, double price = 0.0,
                   const double sl = 0.0, const double tp = 0.0, const string comment = "" ) {
@@ -132,13 +120,12 @@ bool CTrade::PositionOpen( const string symbol, const ENUM_ORDER_TYPE order_type
  *
  */
 
-class CTradeCustom : public CTrade {
+class CTradeCustom : public CTrade
+{
 
 public:
-   CTradeCustom() : CTrade() {
-   }
-   ~CTradeCustom() {
-   }
+   CTradeCustom() : CTrade() {}
+   ~CTradeCustom() {}
 
    bool PositionCloseByType( const string symbol, ENUM_POSITION_TYPE positionType,
                              const int deviation = ULONG_MAX );

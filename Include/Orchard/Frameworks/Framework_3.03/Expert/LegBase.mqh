@@ -32,7 +32,8 @@
 
 #include "ExpertBase.mqh"
 
-class CLegBase : public CExpertBase {
+class CLegBase : public CExpertBase
+{
 
 private:
 protected:
@@ -40,8 +41,7 @@ protected:
 
 public:
    CLegBase( ENUM_POSITION_TYPE legType, double orderSize, string tradeComment, long magic );
-   ~CLegBase() {
-   }
+   ~CLegBase() {}
 };
 
 CLegBase::CLegBase( ENUM_POSITION_TYPE legType, double orderSize, string tradeComment, long magic )

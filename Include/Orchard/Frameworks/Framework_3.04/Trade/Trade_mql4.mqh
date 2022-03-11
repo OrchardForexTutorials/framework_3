@@ -39,7 +39,7 @@ class CTrade : public CObject
 
 private:
 protected:                 // member variables
-   int            mMagic;  // expert magic number
+   int            m_magic; // expert magic number
    MqlTradeResult mResult; // result data
 
    void           ClearStructures();
@@ -49,8 +49,8 @@ public: // constructors
    ~CTrade();
 
 public:
-   ulong  RequestMagic() { return ( mMagic ); }
-   void   SetExpertMagicNumber( const long magic ) { mMagic = ( int )magic; }
+   ulong  RequestMagic() { return ( m_magic ); }
+   void   SetExpertMagicNumber( const long magic ) { m_magic = ( int )magic; }
 
    double BuyPrice( string symbol ) { return ( SymbolInfoDouble( symbol, SYMBOL_ASK ) ); }
    double SellPrice( string symbol ) { return ( SymbolInfoDouble( symbol, SYMBOL_BID ) ); }
@@ -60,12 +60,17 @@ public:
    bool   Sell( const double volume, const string symbol = NULL, double price = 0.0,
                 const double sl = 0.0, const double tp = 0.0, const string comment = "" );
 
+   bool   OrderOpen( const string symbol, const ENUM_ORDER_TYPE order_type, const double volume,
+                     const double limit_price, const double price, const double sl, const double tp,
+                     ENUM_ORDER_TYPE_TIME type_time = ORDER_TIME_GTC, const datetime expiration = 0,
+                     const string comment = "" );
    bool   PositionClose( int ticket );
+   bool   PositionModify( const ulong ticket, const double sl, const double tp );
    bool   PositionOpen( const string symbol, const ENUM_ORDER_TYPE order_type, const double volume,
                         const double price, const double sl, const double tp, const string comment );
 };
 
-CTrade::CTrade() { mMagic = 0; }
+CTrade::CTrade() { m_magic = 0; }
 
 CTrade::~CTrade() {}
 
@@ -74,14 +79,22 @@ void CTrade::ClearStructures() { ZeroMemory( mResult ); }
 bool CTrade::Buy( const double volume, const string symbol = NULL, double price = 0.0,
                   const double sl = 0.0, const double tp = 0.0, const string comment = "" ) {
    if ( price == 0.0 ) price = BuyPrice( symbol );
-   int ticket = OrderSend( symbol, ORDER_TYPE_BUY, volume, price, 0, sl, tp, comment, mMagic );
-   return ( ticket > 0 );
+   return ( PositionOpen( symbol, ORDER_TYPE_BUY, volume, price, sl, tp, comment ) );
 }
 
 bool CTrade::Sell( const double volume, const string symbol = NULL, double price = 0.0,
                    const double sl = 0.0, const double tp = 0.0, const string comment = "" ) {
    if ( price == 0.0 ) price = SellPrice( symbol );
-   int ticket = OrderSend( symbol, ORDER_TYPE_SELL, volume, price, 0, sl, tp, comment, mMagic );
+   return ( PositionOpen( symbol, ORDER_TYPE_SELL, volume, price, sl, tp, comment ) );
+}
+
+bool CTrade::OrderOpen( const string symbol, const ENUM_ORDER_TYPE order_type, const double volume,
+                        const double limit_price, const double price, const double sl,
+                        const double tp, ENUM_ORDER_TYPE_TIME type_time = ORDER_TIME_GTC,
+                        const datetime expiration = 0, const string comment = "" ) {
+
+   int ticket =
+      OrderSend( symbol, order_type, volume, price, 0, sl, tp, comment, m_magic, expiration );
    return ( ticket > 0 );
 }
 
@@ -92,6 +105,20 @@ bool CTrade::PositionClose( int ticket ) {
       return ( OrderClose( ticket, OrderLots(), OrderClosePrice(), 0 ) );
    }
    return ( OrderDelete( ticket ) );
+}
+
+bool CTrade::PositionModify( const ulong ticket, const double sl, const double tp ) {
+
+   ulong currentTicket = OrderTicket();
+   if ( currentTicket != ticket ) {
+      if ( !OrderSelect( ( int )ticket, SELECT_BY_TICKET ) ) return ( false );
+   }
+   bool result = OrderModify( ( int )ticket, OrderOpenPrice(), sl, tp, OrderExpiration() );
+   if ( currentTicket != ticket ) {
+      if ( !OrderSelect( ( int )currentTicket, SELECT_BY_TICKET ) ) {
+      }
+   }
+   return ( result );
 }
 
 bool CTrade::PositionOpen( const string symbol, const ENUM_ORDER_TYPE order_type,
@@ -108,7 +135,11 @@ bool CTrade::PositionOpen( const string symbol, const ENUM_ORDER_TYPE order_type
       return ( false );
    }
 
-   return ( OrderSend( symbol, order_type, volume, price, 0, sl, tp, comment, mMagic ) > 0 );
+   int ticket   = OrderSend( symbol, order_type, volume, price, 0, sl, tp, comment, m_magic );
+
+   mResult.deal = ticket;
+
+   return ( ticket > 0 );
 }
 
 /*
@@ -125,10 +156,26 @@ public:
    CTradeCustom() : CTrade() {}
    ~CTradeCustom() {}
 
+   bool OrderDelete( const string symbol, ENUM_ORDER_TYPE orderType );
+
    bool PositionCloseByType( const string symbol, ENUM_POSITION_TYPE positionType,
                              const int deviation = ULONG_MAX );
    void PositionCountByType( const string symbol, int &count[] );
 };
+
+bool CTradeCustom::OrderDelete( const string symbol, ENUM_ORDER_TYPE orderType ) {
+
+   bool result = true;
+   for ( int i = OrdersTotal() - 1; i >= 0; i-- ) {
+      if ( OrderSelect( i, SELECT_BY_POS, MODE_TRADES ) ) {
+         if ( OrderSymbol() == symbol && OrderType() == orderType &&
+              OrderMagicNumber() == m_magic ) {
+            result &= OrderDelete( OrderTicket() );
+         }
+      }
+   }
+   return ( result );
+}
 
 bool CTradeCustom::PositionCloseByType( const string symbol, ENUM_POSITION_TYPE positionType,
                                         const int deviation = ULONG_MAX ) {
@@ -139,7 +186,7 @@ bool CTradeCustom::PositionCloseByType( const string symbol, ENUM_POSITION_TYPE 
    int  cnt      = OrdersTotal();
    for ( int i = cnt - 1; i >= 0; i-- ) {
       if ( OrderSelect( i, SELECT_BY_POS, MODE_TRADES ) ) {
-         if ( OrderSymbol() == symbol && OrderMagicNumber() == mMagic &&
+         if ( OrderSymbol() == symbol && OrderMagicNumber() == m_magic &&
               OrderType() == positionType ) {
             result &= OrderClose( OrderTicket(), OrderLots(), OrderClosePrice(), slippage );
          }
@@ -156,7 +203,7 @@ void CTradeCustom::PositionCountByType( const string symbol, int &count[] ) {
    int cnt = OrdersTotal();
    for ( int i = cnt - 1; i >= 0; i-- ) {
       if ( OrderSelect( i, SELECT_BY_POS, MODE_TRADES ) ) {
-         if ( OrderSymbol() == symbol && OrderMagicNumber() == mMagic ) {
+         if ( OrderSymbol() == symbol && OrderMagicNumber() == m_magic ) {
             count[( int )OrderType()]++;
          }
       }

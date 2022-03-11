@@ -30,8 +30,6 @@
  *
  **/
 
-#include "../Framework_Version.mqh"
-
 enum ENUM_POSITION_TYPE
 {
    POSITION_TYPE_BUY,
@@ -42,6 +40,21 @@ enum ENUM_POSITION_TYPE
 enum ENUM_TRADE_RETCODES
 {
    TRADE_RETCODE_INVALID = 10013, //	Invalid request
+};
+
+//	To handle the changes of buffer names, will grow as needed
+enum ENUM_INDICATOR_BUFFERS
+{
+   MAIN_LINE   = MODE_MAIN,
+   SIGNAL_LINE = MODE_SIGNAL,
+};
+
+enum ENUM_ORDER_TYPE_TIME
+{
+   ORDER_TIME_GTC,
+   ORDER_TIME_DAY,
+   ORDER_TIME_SPECIFIED,
+   ORDER_TIME_SPECIFIED_DAY,
 };
 
 struct MqlTradeRequest

@@ -50,7 +50,8 @@ public: // constructors
 
 public:
    virtual double GetData( const int index ) { return ( GetData( 0, index ) ); }
-   virtual double GetData( const int bufferNum, const int index ) { return ( 0 ); }
+   virtual double GetData( const int bufferNum, const int index );
+   int            handle() { return ( mIndicatorHandle ); }
 };
 
 CIndicatorBase::~CIndicatorBase() {
@@ -74,3 +75,19 @@ int CIndicatorBase::Init() {
 
    return ( INIT_SUCCEEDED );
 }
+
+#ifdef __MQL5__
+double CIndicatorBase::GetData( const int buffer_num, const int index ) {
+
+   double value = 0;
+
+   //	Get data from a buffer for MQL5
+   //	Improve all of this later when there is a need for an array of results
+   double bufferData[];
+   ArraySetAsSeries( bufferData, true );
+   int cnt = CopyBuffer( mIndicatorHandle, buffer_num, index, 1, bufferData );
+   if ( cnt > 0 ) value = bufferData[0];
+
+   return ( value );
+}
+#endif

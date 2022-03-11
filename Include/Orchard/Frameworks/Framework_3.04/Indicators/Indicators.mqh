@@ -1,12 +1,10 @@
 /*
-
-   PositionInfo.mqh
-   Framework 3.01
-
-   Copyright 2013-2022, Orchard Forex
-   https://www.orchardforex.com
-
-*/
+ *	Indicators.mqh
+ *
+ *	Copyright 2022 Orchard Forex
+ *	https://orchardforex.com
+ *
+ */
 
 /**=
  *
@@ -30,15 +28,14 @@
  * See the README.MD file for more information and before using this software.
  *
  **/
+/*
+ *	This file is only to have a common place to load all indicators
+ *
+ */
 
-#property copyright "Copyright 2021, Orchard Forex"
-#property link "https://orchardforex.com"
-#property version "1.01"
-#property strict
+#include "IndicatorBase.mqh"
 
-#ifdef __MQL4__
-#include "PositionInfo_mql4.mqh"
-#endif
-#ifdef __MQL5__
-#include "PositionInfo_mql5.mqh"
-#endif
+#include "IndicatorHA.mqh"
+#include "IndicatorFractal.mqh"
+#include "IndicatorMA.mqh"
+#include "IndicatorStochastic.mqh"

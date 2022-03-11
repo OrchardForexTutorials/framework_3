@@ -1,6 +1,6 @@
 /*
-   Trade.mqh
-   (For MQL5)
+   Trade_mql5.mqh
+   Framework 3.01
 
    Copyright 2013-2022, Orchard Forex
    https://www.orchardforex.com
@@ -30,8 +30,6 @@
  *
  **/
 
-#include "../Framework_Version.mqh"
-
 #include <Trade/Trade.mqh>
 
 class CTradeCustom : public CTrade
@@ -41,10 +39,27 @@ private:
 protected: // member variables
 public:    // constructors
 public:
+   bool OrderDelete( const string symbol, ENUM_ORDER_TYPE orderType );
    bool PositionCloseByType( const string symbol, ENUM_POSITION_TYPE positionType,
                              const ulong deviation = ULONG_MAX );
    void PositionCountByType( const string symbol, int &count[] );
 };
+
+bool CTradeCustom::OrderDelete( const string symbol, ENUM_ORDER_TYPE orderType ) {
+
+   bool result = true;
+   for ( int i = OrdersTotal() - 1; i >= 0; i-- ) {
+      ulong ticket = OrderGetTicket( i );
+      if ( OrderSelect( ticket ) ) {
+         if ( OrderGetString( ORDER_SYMBOL ) == symbol &&
+              OrderGetInteger( ORDER_TYPE ) == orderType &&
+              OrderGetInteger( ORDER_MAGIC ) == m_magic ) {
+            result &= CTrade::OrderDelete( ticket );
+         }
+      }
+   }
+   return ( result );
+}
 
 bool CTradeCustom::PositionCloseByType( const string symbol, ENUM_POSITION_TYPE positionType,
                                         const ulong deviation = ULONG_MAX ) {

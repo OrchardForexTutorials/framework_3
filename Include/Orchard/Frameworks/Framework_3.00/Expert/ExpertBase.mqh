@@ -35,23 +35,16 @@
 #include "../Common/CommonBase.mqh"
 #include "../Common/Defines.mqh"
 
-class CExpertBase : public CCommonBase {
+class CExpertBase : public CCommonBase
+{
 
 private:
 protected:
 public:
-   CExpertBase() {
-   }
-   ~CExpertBase() {
-   }
+   CExpertBase() {}
+   ~CExpertBase() {}
 
-   virtual int OnInit() {
-      return ( INIT_SUCCEEDED );
-   }
-   virtual void OnDeinit( const int reason ) {
-      return;
-   }
-   virtual void OnTick() {
-      return;
-   }
+   virtual int  OnInit() { return ( INIT_SUCCEEDED ); }
+   virtual void OnDeinit( const int reason ) { return; }
+   virtual void OnTick() { return; }
 };

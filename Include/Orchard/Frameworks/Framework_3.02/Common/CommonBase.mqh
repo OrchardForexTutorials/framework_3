@@ -40,7 +40,8 @@
 #define _INIT_ASSERT( condition, msg )                                                             \
    if ( !condition ) return ( InitError( msg, INIT_FAILED ) );
 
-class CCommonBase : public CObject {
+class CCommonBase : public CObject
+{
 
 private:
 protected: //	Members
@@ -55,24 +56,12 @@ protected: //	Constructors
    //
    //	Constructors
    //
-   CCommonBase() {
-      Init( _Symbol, ( ENUM_TIMEFRAMES )_Period );
-   }
-   CCommonBase( string symbol ) {
-      Init( symbol, ( ENUM_TIMEFRAMES )_Period );
-   }
-   CCommonBase( int timeframe ) {
-      Init( _Symbol, ( ENUM_TIMEFRAMES )timeframe );
-   }
-   CCommonBase( ENUM_TIMEFRAMES timeframe ) {
-      Init( _Symbol, timeframe );
-   }
-   CCommonBase( string symbol, int timeframe ) {
-      Init( symbol, ( ENUM_TIMEFRAMES )timeframe );
-   }
-   CCommonBase( string symbol, ENUM_TIMEFRAMES timeframe ) {
-      Init( symbol, timeframe );
-   }
+   CCommonBase() { Init( _Symbol, ( ENUM_TIMEFRAMES )_Period ); }
+   CCommonBase( string symbol ) { Init( symbol, ( ENUM_TIMEFRAMES )_Period ); }
+   CCommonBase( int timeframe ) { Init( _Symbol, ( ENUM_TIMEFRAMES )timeframe ); }
+   CCommonBase( ENUM_TIMEFRAMES timeframe ) { Init( _Symbol, timeframe ); }
+   CCommonBase( string symbol, int timeframe ) { Init( symbol, ( ENUM_TIMEFRAMES )timeframe ); }
+   CCommonBase( string symbol, ENUM_TIMEFRAMES timeframe ) { Init( symbol, timeframe ); }
 
    //
    //	Destructors
@@ -94,12 +83,8 @@ protected: //	Functions
    }
 
 public: //	Properties
-   int InitResult() {
-      return ( mInitResult );
-   }
-   string InitMessage() {
-      return ( mInitMessage );
-   }
+   int    InitResult() { return ( mInitResult ); }
+   string InitMessage() { return ( mInitMessage ); }
 
 public: //	Functions
 };
