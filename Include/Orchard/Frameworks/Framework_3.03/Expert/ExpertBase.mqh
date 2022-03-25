@@ -34,8 +34,7 @@
 #include "../Common/Defines.mqh"
 #include "../Trade/Trade.mqh"
 
-class CExpertBase : public CCommonBase
-{
+class CExpertBase : public CCommonBase {
 
 private:
 protected:

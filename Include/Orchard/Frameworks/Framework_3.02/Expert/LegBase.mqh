@@ -32,8 +32,7 @@
 
 #include "ExpertBase.mqh"
 
-class CLegBase : public CExpertBase
-{
+class CLegBase : public CExpertBase {
 
 private:
 protected:

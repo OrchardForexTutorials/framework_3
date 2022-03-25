@@ -38,8 +38,7 @@
 #include "../Common/Defines.mqh"
 #include "../Framework_Version.mqh"
 
-class CPositionInfo
-{
+class CPositionInfo {
 
 public:
    bool               SelectByIndex( int index );
@@ -67,8 +66,7 @@ bool CPositionInfo::SelectByIndex( int index ) {
    return ( OrderTicket() > 0 );
 }
 
-class CPositionInfoCustom : public CPositionInfo
-{
+class CPositionInfoCustom : public CPositionInfo {
 
 public:
    int Total() { return ( OrdersTotal() ); }

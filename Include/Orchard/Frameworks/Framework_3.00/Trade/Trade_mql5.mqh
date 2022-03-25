@@ -34,8 +34,7 @@
 
 #include <Trade/Trade.mqh>
 
-class CTradeCustom : public CTrade
-{
+class CTradeCustom : public CTrade {
 
 private:
 protected: // member variables

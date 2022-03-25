@@ -34,8 +34,7 @@
 
 #include "../Common/Defines.mqh"
 
-class CTrade : public CObject
-{
+class CTrade : public CObject {
 
 private:
 protected:                 // member variables
@@ -118,8 +117,7 @@ bool CTrade::PositionOpen( const string symbol, const ENUM_ORDER_TYPE order_type
  *
  */
 
-class CTradeCustom : public CTrade
-{
+class CTradeCustom : public CTrade {
 
 public:
    CTradeCustom() : CTrade() {}

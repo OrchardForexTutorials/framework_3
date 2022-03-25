@@ -1,11 +1,10 @@
 /*
-   Trade.mqh
-   (For MQL5)
-
-   Copyright 2013-2022, Orchard Forex
-   https://www.orchardforex.com
-
-*/
+ *	Indicators.mqh
+ *
+ *	Copyright 2022 Orchard Forex
+ *	https://orchardforex.com
+ *
+ */
 
 /**=
  *
@@ -29,11 +28,16 @@
  * See the README.MD file for more information and before using this software.
  *
  **/
+/*
+ *	This file is only to have a common place to load all indicators
+ *
+ */
 
-#include <Trade/PositionInfo.mqh>
+#include "IndicatorBase.mqh"
 
-class CPositionInfoCustom : public CPositionInfo {
-
-public:
-   int Total() { return ( PositionsTotal() ); }
-};
+#include "IndicatorFractal.mqh"
+#include "IndicatorHA.mqh"
+#include "IndicatorMA.mqh"
+#include "IndicatorMACD.mqh"
+#include "IndicatorRSI.mqh"
+#include "IndicatorStochastic.mqh"

@@ -42,8 +42,7 @@
 #define _INIT_ASSERT( condition, msg )                                                             \
    if ( !condition ) return ( InitError( msg, INIT_FAILED ) );
 
-class CCommonBase : public CObject
-{
+class CCommonBase : public CObject {
 
 private:
 protected: //	Members

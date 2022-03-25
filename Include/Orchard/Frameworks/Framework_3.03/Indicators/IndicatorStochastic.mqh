@@ -30,8 +30,7 @@
  **/
 #include "IndicatorBase.mqh"
 
-class CIndicatorStochastic : public CIndicatorBase
-{
+class CIndicatorStochastic : public CIndicatorBase {
 
 private:
 protected: // member variables

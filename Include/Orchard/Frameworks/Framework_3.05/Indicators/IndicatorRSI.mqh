@@ -1,10 +1,10 @@
 /*
-   IndicatorHA.mqh
-
-   Copyright 2022, Orchard Forex
-   https://www.orchardforex.com
-
-*/
+ *	IndicatorRSI.mqh
+ *
+ *	Copyright 2022, Orchard Forex
+ *	https://orchardforex.com
+ *
+ */
 
 /**=
  *
@@ -30,60 +30,51 @@
  **/
 #include "IndicatorBase.mqh"
 
-#ifdef __MQL4__
-#define HAIndicator "Indicators\\Heiken Ashi.ex4"
-#endif
-#ifdef __MQL5__
-#define HAIndicator "Indicators\\Examples\\Heiken_Ashi.ex5"
-#endif
-#resource "\\" + HAIndicator
-
-enum ENUM_HA_BUFFER
-{
-#ifdef __MQL4__
-   HA_BUFFER_LOHI,
-   HA_BUFFER_HILO,
-   HA_BUFFER_OPEN,
-   HA_BUFFER_CLOSE,
-#endif
-#ifdef __MQL5__
-   HA_BUFFER_OPEN,
-   HA_BUFFER_HILO,
-   HA_BUFFER_LOHI,
-   HA_BUFFER_CLOSE,
-#endif
-};
-
-class CIndicatorHA : public CIndicatorBase {
+class CIndicatorRSI : public CIndicatorBase {
 
 private:
 protected: // member variables
-   void Init();
+   int                mPeriod;
+   ENUM_MA_METHOD     mMethod;
+   ENUM_APPLIED_PRICE mAppliedPrice;
+
+   void               Init( int period, ENUM_APPLIED_PRICE appliedPrice );
 
 public: // constructors
-   CIndicatorHA();
-   CIndicatorHA( string symbol, ENUM_TIMEFRAMES timeframe );
-   ~CIndicatorHA();
+   CIndicatorRSI( int period, ENUM_APPLIED_PRICE appliedPrice );
+   CIndicatorRSI( string symbol, ENUM_TIMEFRAMES timeframe, int period,
+                  ENUM_APPLIED_PRICE appliedPrice );
+   ~CIndicatorRSI();
 
 public:
+#ifdef __MQL4__
    virtual double GetData( const int buffer_num, const int index );
+#endif
 };
 
-CIndicatorHA::CIndicatorHA() : CIndicatorBase( Symbol(), ( ENUM_TIMEFRAMES )Period() ) { Init(); }
+CIndicatorRSI::CIndicatorRSI( int period, ENUM_APPLIED_PRICE appliedPrice )
+   : CIndicatorBase( Symbol(), ( ENUM_TIMEFRAMES )Period() ) {
 
-CIndicatorHA::CIndicatorHA( string symbol, ENUM_TIMEFRAMES timeframe )
-   : CIndicatorBase( symbol, timeframe ) {
-
-   Init();
+   Init( period, appliedPrice );
 }
 
-void CIndicatorHA::Init() {
+CIndicatorRSI::CIndicatorRSI( string symbol, ENUM_TIMEFRAMES timeframe, int period,
+                              ENUM_APPLIED_PRICE appliedPrice )
+   : CIndicatorBase( symbol, timeframe ) {
+
+   Init( period, appliedPrice );
+}
+
+void CIndicatorRSI::Init( int period, ENUM_APPLIED_PRICE appliedPrice ) {
 
    if ( mInitResult != INIT_SUCCEEDED ) return;
 
+   mPeriod       = period;
+   mAppliedPrice = appliedPrice;
+
 //	For MQL5 create the indicator handle here
 #ifdef __MQL5__
-   mIndicatorHandle = iCustom( mSymbol, mTimeframe, "::" + HAIndicator );
+   mIndicatorHandle = iRSI( mSymbol, mTimeframe, mPeriod, mAppliedPrice );
    if ( mIndicatorHandle == INVALID_HANDLE ) {
       InitError( "Failed to create indicator handle", INIT_FAILED );
       return;
@@ -93,21 +84,12 @@ void CIndicatorHA::Init() {
    InitError( "", INIT_SUCCEEDED );
 }
 
-CIndicatorHA::~CIndicatorHA() {}
+CIndicatorRSI::~CIndicatorRSI() {}
 
-double CIndicatorHA::GetData( const int buffer_num, const int index ) {
-
-   double value = 0;
 #ifdef __MQL4__
-   value = iCustom( mSymbol, mTimeframe, "::" + HAIndicator, buffer_num, index );
-#endif
+double CIndicatorRSI::GetData( const int buffer_num, const int index ) {
 
-#ifdef __MQL5__
-   double bufferData[];
-   ArraySetAsSeries( bufferData, true );
-   int cnt = CopyBuffer( mIndicatorHandle, buffer_num, index, 1, bufferData );
-   if ( cnt > 0 ) value = bufferData[0];
-#endif
-
+   double value = iRSI( mSymbol, mTimeframe, mPeriod, mAppliedPrice, index );
    return ( value );
 }
+#endif

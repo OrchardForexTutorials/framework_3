@@ -31,8 +31,7 @@
 #include "../Common/CommonBase.mqh"
 #include "../Common/Defines.mqh"
 
-class CIndicatorBase : public CCommonBase
-{
+class CIndicatorBase : public CCommonBase {
 
 private:
 protected: // member variables

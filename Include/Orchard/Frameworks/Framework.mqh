@@ -47,6 +47,8 @@
 //		then that version will be loaded. If not the most recent
 //		is loaded
 
+// 3.05 RSI and MACD indicators
+#include "Framework_3.05/Framework.mqh"
 // 3.04 more indicators and common methods
 #include "Framework_3.04/Framework.mqh"
 // 3.03 introduced indicator classes

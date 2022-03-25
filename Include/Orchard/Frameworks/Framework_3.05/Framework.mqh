@@ -1,9 +1,10 @@
 /*
-   Trade.mqh
-   (For MQL5)
+   Framework.mqh
+   Framework 3.01
 
    Copyright 2013-2022, Orchard Forex
    https://www.orchardforex.com
+
 
 */
 
@@ -30,10 +31,23 @@
  *
  **/
 
-#include <Trade/PositionInfo.mqh>
+/*
+ *	V3.05
+ *	RSI and MACD indicators
+ *
+ */
 
-class CPositionInfoCustom : public CPositionInfo {
+#ifndef FRAMEWORK_VERSION
+#define FRAMEWORK_VERSION
+#define FRAMEWORK_VERSION_3_05
+#endif
 
-public:
-   int Total() { return ( PositionsTotal() ); }
-};
+#ifdef FRAMEWORK_VERSION_3_05
+
+#include "Common/CommonBase.mqh"
+#include "Expert/ExpertBase.mqh"
+#include "Expert/LegBase.mqh"
+#include "Indicators/Indicators.mqh"
+#include "Trade/Trade.mqh"
+
+#endif

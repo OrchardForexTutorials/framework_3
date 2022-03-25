@@ -1,6 +1,6 @@
 /*
-   Trade.mqh
-   (For MQL5)
+   Defines.mqh
+   Framework 3.01
 
    Copyright 2013-2022, Orchard Forex
    https://www.orchardforex.com
@@ -30,10 +30,6 @@
  *
  **/
 
-#include <Trade/PositionInfo.mqh>
-
-class CPositionInfoCustom : public CPositionInfo {
-
-public:
-   int Total() { return ( PositionsTotal() ); }
-};
+#ifdef __MQL4__
+#include "Defines_mql4.mqh"
+#endif
