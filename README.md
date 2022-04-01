@@ -2,11 +2,20 @@
 
 This code is for education and entertainment purposes only, it is not to be used for live trading.
 
+## v3.06
+- Minor change, added functions to CTradeCustom for MQL4 to allow retrieving the price where the last trade was opened
+
+## v3.05
+- Extended by adding more indicators for RSI and MACD
+
 ## v3.03
 - Added indicators to the framework
 - IndicatorBase as a central indicator class
 - IndicatorStochastic as a wrapper for the Stochastic indicator
 - IndicatorHA as a wrapper for iCustom use of the Heiken Ashi example indicator
+
+## v3.04
+- Added indicators
 
 ## v3.02
 - Implemented additional position and trade capabilities
