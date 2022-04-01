@@ -47,6 +47,8 @@
 //		then that version will be loaded. If not the most recent
 //		is loaded
 
+// 3.06 CTradeCustom.ResultPrice() (for mql4)
+#include "Framework_3.06/Framework.mqh"
 // 3.05 RSI and MACD indicators
 #include "Framework_3.05/Framework.mqh"
 // 3.04 more indicators and common methods
